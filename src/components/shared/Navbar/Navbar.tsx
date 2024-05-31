@@ -32,9 +32,12 @@ const Navbar = () => {
           <Typography component={Link} href="/about-us">
             About Us
           </Typography>
-          <Typography>Medicine</Typography>
-          <Typography>Diagnostics</Typography>
-          <Typography>NGOs</Typography>
+          <Typography component={Link} href="/register">
+            Register
+          </Typography>
+          <Typography component={Link} href="/login">
+            Login
+          </Typography>
         </Stack>
 
         {/* <AuthButton /> */}
