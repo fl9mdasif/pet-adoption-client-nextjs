@@ -16,6 +16,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { registerUser } from "@/services/actions/registerUser";
+import { loginUser } from "@/services/actions/loginUser";
+import { storeUserInfo } from "@/services/auth.services";
 
 interface IUserData {
   name: string;
@@ -37,17 +39,19 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<IUserData> = async (values) => {
     try {
       const res = await registerUser(values);
-      console.log("res", res);
+      // console.log("res", res);
       if (res?.data?.id) {
         toast.success(res?.message);
-        router.push("/login");
-        // const result = await userLogin({
-        //   password: values.password,
-        //   email: values.patient.email,
-        // });
-        // if (result?.data?.accessToken) {
-        //   storeUserInfo({ accessToken: result?.data?.accessToken });
-        // }
+        const result = await loginUser({
+          password: values.password,
+          email: values.email,
+        });
+        // console.log("regis", result);
+        if (result?.data?.accessToken) {
+          storeUserInfo({ accessToken: result?.data?.accessToken });
+          router.push("/");
+          router.refresh();
+        }
       }
     } catch (err: any) {
       console.error(err.message);

@@ -1,15 +1,15 @@
-import Footer from "@/components/shared/Footer/Footer";
-import Navbar from "@/components/shared/Navbar/Navbar";
-import { Box } from "@mui/material";
+// import Footer from "@/components/shared/Footer/Footer";
+// import Navbar from "@/components/shared/Navbar/Navbar";
+// import { Box } from "@mui/material";
 
-const CommonLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <Navbar />
-      <Box className="min-h-screen">{children}</Box>
-      <Footer />
-    </>
-  );
-};
+// const CommonLayout = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <>
+//       <Navbar />
+//       <Box className="min-h-screen">{children}</Box>
+//       <Footer />
+//     </>
+//   );
+// };
 
-export default CommonLayout;
+// export default CommonLayout;

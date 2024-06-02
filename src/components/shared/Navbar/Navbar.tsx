@@ -1,14 +1,21 @@
 "use client";
 
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { getUserInfo } from "@/services/auth.services";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
+
 import Link from "next/link";
 
 const Navbar = () => {
-  //   const AuthButton = dynamic(
-  //     () => import("@/components/UI/AuthButton/AuthButton"),
-  //     { ssr: false }
-  //   );
+  const userInfo = getUserInfo();
+
+  console.log(userInfo);
+
+  const AuthButton = dynamic(
+    () => import("@/components/UI/AuthButton/authButton"),
+    { ssr: false }
+  );
+
   return (
     <Container>
       <Stack
@@ -32,15 +39,9 @@ const Navbar = () => {
           <Typography component={Link} href="/about-us">
             About Us
           </Typography>
-          <Typography component={Link} href="/register">
-            Register
-          </Typography>
-          <Typography component={Link} href="/login">
-            Login
-          </Typography>
         </Stack>
 
-        {/* <AuthButton /> */}
+        <AuthButton />
       </Stack>
     </Container>
   );

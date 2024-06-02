@@ -11,36 +11,27 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/services/actions/loginUser";
-// import { userLogin } from "@/services/actions/userLogin";
-// import { storeUserInfo } from "@/services/auth.services";
-
-export type FormValues = {
-  email: string;
-  password: string;
-};
+import { storeUserInfo } from "@/services/auth.services";
+import RForm from "@/components/Forms/RForm";
+import RInput from "@/components/Forms/RInput";
 
 const LoginPage = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+  const handelSubmit = async (values: FieldValues) => {
     try {
       const res = await loginUser(values);
       console.log("res", res);
       if (res?.data?.accessToken) {
         toast.success(res?.message);
-        // storeUserInfo({ accessToken: res?.data?.accessToken });
+        storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
+        router.refresh();
       }
     } catch (err: any) {
       console.error(err.message);
@@ -77,31 +68,27 @@ const LoginPage = () => {
             </Box>
             <Box>
               <Typography variant="h6" fontWeight={600}>
-                Login PH HealthCare
+                Login User
               </Typography>
             </Box>
           </Stack>
           <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <RForm onSubmit={handelSubmit}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("password")}
                   />
                 </Grid>
               </Grid>
@@ -125,7 +112,7 @@ const LoginPage = () => {
                   <Link href="/register">Create an account</Link>
                 </Typography>
               </Typography>
-            </form>
+            </RForm>
           </Box>
         </Box>
       </Stack>
