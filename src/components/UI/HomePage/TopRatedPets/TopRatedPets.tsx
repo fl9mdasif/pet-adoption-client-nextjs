@@ -15,7 +15,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 const TopRatedPets = async () => {
   const res = await fetch("http://localhost:8000/api/pets?page=1&limit=3");
   const { data: pets } = await res.json();
-  console.log(pets);
+  // console.log(pets);
   return (
     <Box
       sx={{

@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SideBar from "@/components/SideBar/SideBar";
+import { getUserInfo } from "@/services/auth.services";
 
 const drawerWidth = 240;
 
@@ -35,6 +36,8 @@ export default function DashboardDrawer({
       setMobileOpen(!mobileOpen);
     }
   };
+
+  const userInfo = getUserInfo();
 
   // Remove this const when copying and pasting into your project.
 
@@ -63,7 +66,9 @@ export default function DashboardDrawer({
           </IconButton>
           <Box>
             <Typography variant="body2" noWrap component="div" color="gray">
-              Hi, Tanmoy Parvez
+              {/* <p>{userInfo ? userInfo.name : "loading..."}</p>
+               */}
+              MD user
             </Typography>
             <Typography
               variant="body2"
@@ -122,7 +127,7 @@ export default function DashboardDrawer({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
         <Box>{children}</Box>
       </Box>
     </Box>

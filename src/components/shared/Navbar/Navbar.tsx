@@ -9,7 +9,7 @@ import Link from "next/link";
 const Navbar = () => {
   const userInfo = getUserInfo();
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/authButton"),
