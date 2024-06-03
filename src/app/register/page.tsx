@@ -1,23 +1,19 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { modifyPayload } from "@/utils/modifyPayload";
 import { registerUser } from "@/services/actions/registerUser";
-import { loginUser } from "@/services/actions/loginUser";
 import { storeUserInfo } from "@/services/auth.services";
+import RInput from "@/components/Forms/RInput";
+import RForm from "@/components/Forms/RForm";
+import { FieldValues } from "react-hook-form";
+import { loginUser } from "@/services/actions/loginUser";
+import { z } from "zod";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface IUserData {
   name: string;
@@ -27,16 +23,29 @@ interface IUserData {
   address: string;
 }
 
+const UserRegSchema = z.object({
+  name: z.string({
+    required_error: "name is required!",
+  }),
+  email: z
+    .string({
+      required_error: "Valid Email is required!",
+    })
+    .email(),
+  password: z.string().min(6, "Must be at least 6 characters"),
+  contactNumber: z.string(),
+
+  address: z.string({
+    required_error: "address is required!",
+  }),
+});
+
 const RegisterPage = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<IUserData>();
 
-  const onSubmit: SubmitHandler<IUserData> = async (values) => {
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (values: FieldValues) => {
     try {
       const res = await registerUser(values);
       // console.log("res", res);
@@ -51,6 +60,9 @@ const RegisterPage = () => {
           storeUserInfo({ accessToken: result?.data?.accessToken });
           router.push("/");
           router.refresh();
+        } else {
+          setError(res.message);
+          // console.log(res);
         }
       }
     } catch (err: any) {
@@ -94,55 +106,54 @@ const RegisterPage = () => {
           </Stack>
 
           <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <RForm
+              onSubmit={handleSubmit}
+              resolver={zodResolver(UserRegSchema)}
+              defaultValues={{
+                email: "",
+                password: "",
+              }}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
-                  <TextField
+                  <RInput
+                    name="name"
                     label="Name"
-                    variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("name")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("password")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="contactNumber"
                     label="Contact Number"
                     type="tel"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("contactNumber")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <RInput
+                    name="address"
                     label="Address"
                     type="text"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("address")}
                   />
                 </Grid>
               </Grid>
@@ -151,6 +162,7 @@ const RegisterPage = () => {
                   margin: "10px 0px",
                 }}
                 fullWidth={true}
+                // required={true}
                 type="submit"
               >
                 Register
@@ -161,7 +173,7 @@ const RegisterPage = () => {
                   <Link href="/login">Login</Link>
                 </Box>
               </Typography>
-            </form>
+            </RForm>
           </Box>
         </Box>
       </Stack>

@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
@@ -19,9 +19,18 @@ import { loginUser } from "@/services/actions/loginUser";
 import { storeUserInfo } from "@/services/auth.services";
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useState } from "react";
+
+export const validationSchema = z.object({
+  email: z.string().email("Please enter a valid email address!"),
+  password: z.string().min(6, "Must be at least 6 characters"),
+});
 
 const LoginPage = () => {
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const handelSubmit = async (values: FieldValues) => {
     try {
@@ -32,6 +41,9 @@ const LoginPage = () => {
         storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
         router.refresh();
+      } else {
+        setError(res.message);
+        // console.log(res);
       }
     } catch (err: any) {
       console.error(err.message);
@@ -72,8 +84,32 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </Stack>
+
+          {error && (
+            <Box>
+              <Typography
+                sx={{
+                  backgroundColor: "red",
+                  padding: "1px",
+                  borderRadius: "2px",
+                  color: "white",
+                  marginTop: "5px",
+                }}
+              >
+                {error}
+              </Typography>
+            </Box>
+          )}
+
           <Box>
-            <RForm onSubmit={handelSubmit}>
+            <RForm
+              onSubmit={handelSubmit}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={{
+                email: "",
+                password: "",
+              }}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
                   <RInput
@@ -81,6 +117,7 @@ const LoginPage = () => {
                     label="Email"
                     type="email"
                     fullWidth={true}
+                    required={true}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -89,6 +126,7 @@ const LoginPage = () => {
                     label="Password"
                     type="password"
                     fullWidth={true}
+                    required={true}
                   />
                 </Grid>
               </Grid>
