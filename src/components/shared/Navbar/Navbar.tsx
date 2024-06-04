@@ -5,11 +5,17 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const userInfo = getUserInfo();
+  const [userRole, setUserRole] = useState("");
 
-  // console.log(userInfo);
+  useEffect(() => {
+    const { role } = getUserInfo() as any;
+    setUserRole(role);
+  }, []);
+
+  console.log(userRole);
 
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/authButton"),
@@ -38,6 +44,9 @@ const Navbar = () => {
           </Typography>
           <Typography component={Link} href="/pets">
             Pets
+          </Typography>
+          <Typography component={Link} href="/dashboard">
+            Dashboard
           </Typography>
           <Typography component={Link} href="/about-us">
             About Us

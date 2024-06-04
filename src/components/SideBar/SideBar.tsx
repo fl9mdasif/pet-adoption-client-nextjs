@@ -16,6 +16,8 @@ const SideBar = () => {
     setUserRole(role);
   }, []);
 
+  console.log(userRole);
+
   return (
     <Box>
       <Stack
@@ -38,7 +40,7 @@ const SideBar = () => {
             cursor: "pointer",
           }}
         >
-          PH Health Care
+          Pet Adoption
         </Typography>
       </Stack>
       <List>

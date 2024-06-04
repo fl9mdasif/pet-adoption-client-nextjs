@@ -7,7 +7,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] }); className={inter.className}
 
 export const metadata: Metadata = {
   title: "Pet adoption care",
@@ -22,13 +22,13 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
-        <body className={inter.className}>
+        <body>
           <AppRouterCacheProvider>
             <>
-              <Navbar />
-              <Toaster position="top-center" />
+              {/* <Navbar /> */}
+              <Toaster position="bottom-right" />
               {children}
-              <Footer />
+              {/* <Footer /> */}
             </>
           </AppRouterCacheProvider>
         </body>

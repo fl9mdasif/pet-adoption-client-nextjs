@@ -76,7 +76,7 @@ export default function DashboardDrawer({
               component="div"
               color="primary.main"
             >
-              Welcome To, PH Health Care !
+              Welcome To, Pet adoption dashboard
             </Typography>
           </Box>
         </Toolbar>
