@@ -127,7 +127,7 @@ export default function DashboardDrawer({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        {/* <Toolbar /> */}
+        <Toolbar />
         <Box>{children}</Box>
       </Box>
     </Box>

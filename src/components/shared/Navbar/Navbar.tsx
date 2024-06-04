@@ -8,14 +8,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const [userRole, setUserRole] = useState("");
+  // const [userRole, setUserRole] = useState("");
 
-  useEffect(() => {
-    const { role } = getUserInfo() as any;
-    setUserRole(role);
-  }, []);
+  // useEffect(() => {
+  //   const { role } = getUserInfo() as any;
+  //   setUserRole(role);
+  // }, []);
 
-  console.log(userRole);
+  // console.log(userRole);
 
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/authButton"),

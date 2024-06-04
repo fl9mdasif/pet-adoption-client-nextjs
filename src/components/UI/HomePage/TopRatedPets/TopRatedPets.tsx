@@ -15,7 +15,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 const TopRatedPets = async () => {
   const res = await fetch("http://localhost:8000/api/pets?page=1&limit=3");
   const { data: pets } = await res.json();
-  // console.log(pets);
+  console.log(pets);
   return (
     <Box
       sx={{
@@ -43,12 +43,7 @@ const TopRatedPets = async () => {
             <Grid item key={pet.id} md={4}>
               <Card>
                 <Box>
-                  <Image
-                    src={pet.photo[0]}
-                    alt="pet"
-                    width={500}
-                    height={100}
-                  />
+                  <Image src={pet.photo} alt="pet" width={500} height={100} />
                 </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
