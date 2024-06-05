@@ -41,7 +41,7 @@ const RSelect = ({
       name={name}
       render={({ field, fieldState: { error } }) => (
         <FormControl sx={{ ...sx }} fullWidth={fullWidth} error={!!error}>
-          {label && <InputLabel>{label}</InputLabel>}
+          {label && <InputLabel id={label}>{label}</InputLabel>}
           <Select {...field} label={label} size={size} required={required}>
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>

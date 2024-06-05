@@ -1,11 +1,7 @@
-import React from "react";
-
 const ProfileManagement = () => {
-  return (
-    <div>
-      <h1>profile-management</h1>
-    </div>
-  );
+  // const router = useRouter();
+
+  return <>hi</>;
 };
 
 export default ProfileManagement;
