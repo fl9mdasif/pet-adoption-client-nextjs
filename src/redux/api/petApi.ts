@@ -34,7 +34,7 @@ const petApi = baseApi.injectEndpoints({
       query: ({ id, data }) => ({
         url: `/pets/${id}`,
         method: "PATCH",
-        body: data,
+        data,
       }),
       invalidatesTags: [tagTypes.pets],
     }),

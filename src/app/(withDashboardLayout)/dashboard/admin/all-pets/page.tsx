@@ -14,6 +14,7 @@ const AllPets = () => {
   const { data, isLoading, refetch } = useGetAllPetsQuery({});
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [getId, setId] = useState("");
 
   const [deletePet] = useDeletePetMutation();
 
@@ -34,6 +35,12 @@ const AllPets = () => {
       console.error(err.message);
     }
     console.log(id);
+  };
+
+  const handleUpdate = (id: string) => {
+    setIsModalOpen(true);
+    setId(id);
+    console.log({ getId });
   };
 
   const columns: GridColDef[] = [
@@ -62,7 +69,7 @@ const AllPets = () => {
     { field: "healthStatus", headerName: "healthStatus", width: 100 },
 
     {
-      field: "ss",
+      field: "action1",
       headerName: "Update",
       flex: 1,
       headerAlign: "center",
@@ -70,11 +77,11 @@ const AllPets = () => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            <Button variant="outlined" onClick={() => setIsModalOpen(true)}>
+            <Button variant="outlined" onClick={() => handleUpdate(row.id)}>
               Update
             </Button>
             <UpdatePetModal
-              id={row.id}
+              id={getId}
               open={isModalOpen}
               setOpen={setIsModalOpen}
             />

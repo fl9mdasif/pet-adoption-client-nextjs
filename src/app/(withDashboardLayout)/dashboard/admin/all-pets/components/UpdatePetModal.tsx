@@ -16,15 +16,15 @@ type TProps = {
 };
 
 const UpdatePetModal = ({ open, setOpen, id }: TProps) => {
-  const [updatePet] = useUpdatePetMutation();
+  const [updatePet, { isLoading }] = useUpdatePetMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
     console.log(id);
     const data = modifyPayload(values);
-    console.log(data);
+    // console.log(data, isLoading);
     try {
       const res = await updatePet({ id, data }).unwrap();
-      console.log(res);
+      // console.log(res);
       if (res?.id) {
         toast.success("Pet updated successfully!!");
         setOpen(false);
@@ -65,7 +65,7 @@ const UpdatePetModal = ({ open, setOpen, id }: TProps) => {
                 { label: "VACCINATED", value: "VACCINATED" },
                 { label: "EUTERED", value: "EUTERED" },
               ]}
-              required
+              // required
             />
           </Grid>
         </Grid>
