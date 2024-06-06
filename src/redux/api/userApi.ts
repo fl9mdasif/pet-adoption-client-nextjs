@@ -2,7 +2,7 @@
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const petApi = baseApi.injectEndpoints({
+const UserApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     createPet: build.mutation({
       query: (data) => ({
@@ -11,14 +11,13 @@ const petApi = baseApi.injectEndpoints({
         contentType: "application/json",
         data,
       }),
-      invalidatesTags: [tagTypes.pets],
+      invalidatesTags: [tagTypes.user],
     }),
 
     getAllPets: build.query({
-      query: (arg: Record<string, any>) => ({
+      query: () => ({
         url: "/pets",
         method: "GET",
-        params: arg,
       }),
       providesTags: [tagTypes.pets],
     }),
@@ -31,20 +30,15 @@ const petApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.pets],
     }),
 
-    updatePet: build.mutation({
+    updateUser: build.mutation({
       query: ({ id, data }) => ({
-        url: `/pets/${id}`,
+        url: `/profile`,
         method: "PATCH",
         data,
       }),
-      invalidatesTags: [tagTypes.pets],
+      invalidatesTags: [tagTypes.user],
     }),
   }),
 });
 
-export const {
-  useCreatePetMutation,
-  useDeletePetMutation,
-  useGetAllPetsQuery,
-  useUpdatePetMutation,
-} = petApi;
+export const { useUpdateUserMutation } = UserApi;

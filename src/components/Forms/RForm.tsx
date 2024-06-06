@@ -18,19 +18,19 @@ type TFormProps = {
 const RForm = ({ children, onSubmit, resolver, defaultValues }: TFormProps) => {
   const formConfig: TFormConfig = {};
 
-    if (resolver) {
-      formConfig["resolver"] = resolver;
-    }
+  if (resolver) {
+    formConfig["resolver"] = resolver;
+  }
 
-    if (defaultValues) {
-      formConfig["defaultValues"] = defaultValues;
-    }
+  if (defaultValues) {
+    formConfig["defaultValues"] = defaultValues;
+  }
 
   const methods = useForm(formConfig);
   const { handleSubmit, reset } = methods;
 
   const submit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    // console.log(data);
     onSubmit(data);
     reset();
   };

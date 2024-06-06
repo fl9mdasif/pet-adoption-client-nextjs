@@ -1,9 +1,9 @@
 "use client";
 import Loading from "@/app/loading";
 import { useDeletePetMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import UpdatePetModal from "./components/UpdatePetModal";
@@ -11,14 +11,18 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const AllPets = () => {
-  const { data, isLoading, refetch } = useGetAllPetsQuery({});
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  query["searchTerm"] = searchTerm;
+
+  const { data, isLoading, refetch } = useGetAllPetsQuery({ ...query });
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [getId, setId] = useState("");
 
   const [deletePet] = useDeletePetMutation();
 
-  console.log(data);
+  console.log(searchTerm);
 
   if (isLoading) {
     return <Loading />;
@@ -34,13 +38,13 @@ const AllPets = () => {
     } catch (err: any) {
       console.error(err.message);
     }
-    console.log(id);
+    // console.log(id);
   };
 
   const handleUpdate = (id: string) => {
     setIsModalOpen(true);
     setId(id);
-    console.log({ getId });
+    // console.log({ getId });
   };
 
   const columns: GridColDef[] = [
@@ -77,10 +81,14 @@ const AllPets = () => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            <Button variant="outlined" onClick={() => handleUpdate(row.id)}>
-              Update
-            </Button>
+            <IconButton
+              aria-label="update"
+              onClick={() => handleUpdate(row.id)}
+            >
+              <EditNoteIcon />
+            </IconButton>
             <UpdatePetModal
+              refetch={refetch}
               id={getId}
               open={isModalOpen}
               setOpen={setIsModalOpen}
@@ -110,6 +118,11 @@ const AllPets = () => {
   return (
     <Box>
       <h1>All pets</h1>
+      <TextField
+        onChange={(e) => setSearchTerm(e.target.value)}
+        size="small"
+        placeholder="search pets"
+      />
 
       {!isLoading ? (
         <Box my={2}>

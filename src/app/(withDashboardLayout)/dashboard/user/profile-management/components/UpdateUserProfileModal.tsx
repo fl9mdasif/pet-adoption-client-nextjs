@@ -3,6 +3,7 @@ import RInput from "@/components/Forms/RInput";
 import RSelect from "@/components/Forms/RSelect";
 import RModal from "@/components/shared/RModal/RModal";
 import { useUpdatePetMutation } from "@/redux/api/petApi";
+import { useUpdateUserMutation } from "@/redux/api/userApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import React from "react";
@@ -16,20 +17,20 @@ type TProps = {
   refetch: any;
 };
 
-const UpdatePetModal = ({ open, setOpen, id, refetch }: TProps) => {
-  const [updatePet, { isLoading }] = useUpdatePetMutation();
+const UpdateUserProfile = ({ open, setOpen, id, refetch }: TProps) => {
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
     // console.log(id);
     const data = modifyPayload(values);
-    // console.log(data, isLoading);
+    // console.log("up", data);
     try {
-      const res = await updatePet({ id, data }).unwrap();
-      // console.log(res);
+      const res = await updateUser({ id, data }).unwrap();
+      console.log(res);
       if (res?.id) {
-        toast.success("Pet updated successfully!!");
+        toast.success("User profile updated successfully!!");
         setOpen(false);
-        refetch();
+        // refetch();
       }
     } catch (err: any) {
       console.error(err.message);
@@ -44,47 +45,25 @@ const UpdatePetModal = ({ open, setOpen, id, refetch }: TProps) => {
             <RInput name="name" label="name" type="string" fullWidth={true} />
           </Grid>
           <Grid item md={6}>
-            <RInput
-              name="species"
-              label="species"
-              type="string"
-              fullWidth={true}
-            />
+            <RInput name="email" label="email" type="email" fullWidth={true} />
           </Grid>
         </Grid>
 
         <Grid container spacing={2}>
           <Grid item md={6}>
-            <RInput name="breed" label="breed" type="string" fullWidth={true} />
-          </Grid>
-          <Grid item md={6}>
-            <RSelect
-              name="healthStatus"
-              label="healthStatus"
-              size="medium"
+            <RInput
+              name="contactNumber"
+              label="contactNumber"
+              type="contactNumber"
               fullWidth={true}
-              options={[
-                { label: "VACCINATED", value: "VACCINATED" },
-                { label: "EUTERED", value: "EUTERED" },
-              ]}
-              // required
             />
           </Grid>
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid item md={6}>
-            <RInput name="age" label="age" type="string" fullWidth={true} />
-          </Grid>
-          <Grid item md={6}>
-            <RInput name="size" label="size" type="string" fullWidth={true} />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2}>
+
           <Grid item md={6}>
             <RInput
-              name="location"
-              label="location"
-              type="string"
+              name="address"
+              label="address"
+              type="address"
               fullWidth={true}
             />
           </Grid>
@@ -99,4 +78,4 @@ const UpdatePetModal = ({ open, setOpen, id, refetch }: TProps) => {
   );
 };
 
-export default UpdatePetModal;
+export default UpdateUserProfile;

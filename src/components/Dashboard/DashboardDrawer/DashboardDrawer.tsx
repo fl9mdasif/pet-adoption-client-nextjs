@@ -37,7 +37,21 @@ export default function DashboardDrawer({
     }
   };
 
-  const userInfo = getUserInfo();
+  type TUser = {
+    id: string;
+    name: string;
+    role: string;
+    email: string;
+    iat: string;
+    exp: string;
+  };
+  const [user, setUser] = React.useState<TUser>();
+
+  React.useEffect(() => {
+    const userInfo: TUser = getUserInfo();
+
+    setUser(userInfo);
+  }, []);
 
   // Remove this const when copying and pasting into your project.
 
@@ -68,7 +82,7 @@ export default function DashboardDrawer({
             <Typography variant="body2" noWrap component="div" color="gray">
               {/* <p>{userInfo ? userInfo.name : "loading..."}</p>
                */}
-              MD user
+              {user ? user?.name : "User"}
             </Typography>
             <Typography
               variant="body2"

@@ -75,7 +75,7 @@ const CreatePetModal = ({ open, setOpen }: TProps) => {
             <RInput
               name="age"
               label="age"
-              type="number"
+              type="string"
               fullWidth={true}
               required={true}
             />

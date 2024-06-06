@@ -8,7 +8,7 @@ const AuthButton = () => {
 
   const userInfo = getUserInfo();
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const handleLogOut = () => {
     removeUser();
