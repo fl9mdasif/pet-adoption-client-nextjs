@@ -18,6 +18,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useState } from "react";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import Navbar from "@/components/shared/Navbar/Navbar";
+import Link from "next/link";
 
 const AllPets = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -197,8 +198,8 @@ const AllPets = () => {
                         paddingBottom: "20px",
                       }}
                     >
-                      <Button>Book Now</Button>
-                      <Button variant="outlined">View Profile</Button>
+                      <Button>Adopt Now</Button>
+                      <Link href={`/pets/${pet.id}`}>View Details</Link>
                     </CardActions>
                   </Card>
                 </Grid>
