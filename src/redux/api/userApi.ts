@@ -4,9 +4,9 @@ import { baseApi } from "./baseApi";
 
 const UserApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    createPet: build.mutation({
+    changePassword: build.mutation({
       query: (data) => ({
-        url: "/pets",
+        url: "/auth/change-password",
         method: "POST",
         contentType: "application/json",
         data,
@@ -14,31 +14,55 @@ const UserApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.user],
     }),
 
-    getAllPets: build.query({
-      query: () => ({
-        url: "/pets",
-        method: "GET",
-      }),
-      providesTags: [tagTypes.pets],
-    }),
-
-    deletePet: build.mutation({
-      query: (id) => ({
-        url: `/pets/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: [tagTypes.pets],
-    }),
-
     updateUser: build.mutation({
-      query: ({ id, data }) => ({
+      query: (data) => ({
         url: `/profile`,
         method: "PATCH",
         data,
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
+    getMyProfile: build.query({
+      query: () => ({
+        url: "/profile/me",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.pets],
+    }),
+
+    getAllUsers: build.query({
+      query: () => ({
+        url: "/profile/get-all",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
+
+    deleteUserFromDB: build.mutation({
+      query: (id) => ({
+        url: `/profile/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+
+    updateUserByAdmin: build.mutation({
+      query: ({id,data}) => ({
+        url: `/profile/${id}`,
+        method: "PATCH",
+        data
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useUpdateUserMutation } = UserApi;
+export const {
+  useUpdateUserMutation,
+  useChangePasswordMutation,
+  useGetMyProfileQuery,
+  useGetAllUsersQuery,
+  useDeleteUserFromDBMutation,
+  useUpdateUserByAdminMutation,
+} = UserApi;

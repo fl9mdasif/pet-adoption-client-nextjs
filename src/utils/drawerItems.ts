@@ -61,11 +61,7 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           path: `${role}/my-adoptions`,
           icon: ChecklistIcon,
         },
-        {
-          title: "Change Password",
-          path: `${role}/change-password`,
-          icon: KeyIcon,
-        },
+
         {
           title: "My Profile",
           path: `${role}/profile-management`,

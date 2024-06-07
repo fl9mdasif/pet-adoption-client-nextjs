@@ -3,9 +3,9 @@ import RInput from "@/components/Forms/RInput";
 import RSelect from "@/components/Forms/RSelect";
 import RModal from "@/components/shared/RModal/RModal";
 import { useUpdatePetMutation } from "@/redux/api/petApi";
-import { useUpdateUserMutation } from "@/redux/api/userApi";
+import { useUpdateUserByAdminMutation } from "@/redux/api/userApi";
 import { modifyPayload } from "@/utils/modifyPayload";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, MenuItem, TextField } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,18 +17,18 @@ type TProps = {
   refetch: any;
 };
 
-const UpdateUserProfile = ({ open, setOpen, id, refetch }: TProps) => {
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+const UpdateUserModal = ({ open, setOpen, id, refetch }: TProps) => {
+  const [updateUserByAdmin, { isLoading }] = useUpdateUserByAdminMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
-    // console.log(id);
     const data = modifyPayload(values);
-    // console.log("up", data);
+    console.log(data);
+
     try {
-      const res = await updateUser(data).unwrap();
+      const res = await updateUserByAdmin({ id, data }).unwrap();
       console.log(res);
       if (res?.id) {
-        toast.success("User profile updated successfully!!");
+        toast.success("User updated successfully!!");
         setOpen(false);
         refetch();
       }
@@ -38,33 +38,35 @@ const UpdateUserProfile = ({ open, setOpen, id, refetch }: TProps) => {
   };
 
   return (
-    <RModal open={open} setOpen={setOpen} title="update a pet">
+    <RModal open={open} setOpen={setOpen} title="update user role and status">
       <RForm onSubmit={handleFormSubmit}>
         <Grid container spacing={2}>
-          <Grid item md={6}>
-            <RInput name="name" label="name" type="string" fullWidth={true} />
-          </Grid>
-          <Grid item md={6}>
-            <RInput name="email" label="email" type="email" fullWidth={true} />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2}>
-          <Grid item md={6}>
-            <RInput
-              name="contactNumber"
-              label="contactNumber"
-              type="contactNumber"
+          <Grid item md={12}>
+            <RSelect
+              name="role"
+              label="role"
+              size="medium"
               fullWidth={true}
+              options={[
+                { label: "USER", value: "USER" },
+                { label: "ADMIN", value: "ADMIN" },
+              ]}
+              // required
             />
           </Grid>
-
-          <Grid item md={6}>
-            <RInput
-              name="address"
-              label="address"
-              type="address"
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item md={12}>
+            <RSelect
+              name="status"
+              label="status"
+              size="medium"
               fullWidth={true}
+              options={[
+                { label: "ACTIVE", value: "ACTIVE" },
+                { label: "BLOCKED", value: "BLOCKED" },
+              ]}
+              // required
             />
           </Grid>
         </Grid>
@@ -78,4 +80,4 @@ const UpdateUserProfile = ({ open, setOpen, id, refetch }: TProps) => {
   );
 };
 
-export default UpdateUserProfile;
+export default UpdateUserModal;

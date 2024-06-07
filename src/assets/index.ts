@@ -11,6 +11,7 @@ const assets = {
     adopt1: require("./images/adopt1.jpg"),
     adopt2: require("./images/adopt2.jpg"),
     adopt3: require("./images/adopt3.jpg"),
+    userImg: require("./images/user.png"),
     // doctor3: require("./images/doctor3.png"),
     // stethoscope: require("./images/Stetoscope.png"),
     // familyOnBeach: require("./images/familyOnBeach.png"),
