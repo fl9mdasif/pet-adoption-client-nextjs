@@ -8,6 +8,7 @@ import {
   CardContent,
   Container,
   Grid,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -16,6 +17,7 @@ import Image from "next/image";
 import Loading from "@/app/loading";
 import { useState } from "react";
 import AdoptPetModal from "../components/AdoptPetModal"; // Ensure this is correctly imported
+import Navbar from "@/components/shared/Navbar/Navbar";
 
 interface TParams {
   petId: string;
@@ -25,34 +27,36 @@ const PetDetails = ({ params }: { params: TParams }) => {
   const { data: pet, isLoading } = useGetSinglePetQuery(params.petId);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  console.log(pet);
+  // console.log(pet);
   return (
     <>
+      <Navbar />
       {isLoading ? (
-        <Loading />
+        <Skeleton variant="rectangular" width={210} height={118} />
       ) : (
-        <Container maxWidth="md" sx={{ display: "flex", mt: 3 }}>
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                height: "800px", // Fixed height
-                overflow: "hidden",
-                pt: 4,
-                padding: 1,
-              }}
-            >
-              <Image
-                src={pet.photo}
-                alt="pet"
-                width={600}
-                height={700}
-                objectFit="contain" // Cover property
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
+        <Container
+          maxWidth="md"
+          sx={{ display: "flex", flexDirection: "row", mt: 3, mb: 5 }}
+        >
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              height: "400px", // Fixed height
+              overflow: "hidden",
+              pt: 4,
+              mt: 4,
+              padding: 1,
+            }}
+          >
+            <Image
+              src={pet.photo}
+              alt="pet"
+              layout="fill"
+              objectFit="cover" // Cover property
+            />
+          </Box>
+          <Box sx={{ mt: 4 }}>
             <Card>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
@@ -115,7 +119,7 @@ const PetDetails = ({ params }: { params: TParams }) => {
                 Adopt the {pet.species}
               </Button>
             </CardActions>
-          </Grid>
+          </Box>
         </Container>
       )}
 

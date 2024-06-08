@@ -26,7 +26,7 @@ const UpdateAdoptionModal = ({ open, setOpen, id, refetch }: TProps) => {
     // console.log(data);
     try {
       const res = await updateAdoptionStatus({ id, data }).unwrap();
-      console.log(res);
+      // console.log(res);
       if (res?.id) {
         toast.success("Adoption Status updated successfully!!");
         setOpen(false);

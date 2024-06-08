@@ -111,6 +111,7 @@ const TopRatedPets = () => {
               <MenuItem value="dog">Dog</MenuItem>
               <MenuItem value="horse">Horse</MenuItem>
               <MenuItem value="goat">Goat</MenuItem>
+              <MenuItem value="bird">Bird</MenuItem>
             </TextField>
 
             <TextField

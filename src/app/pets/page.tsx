@@ -12,6 +12,7 @@ import {
   TextField,
   MenuItem,
   Stack,
+  Skeleton,
 } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -42,37 +43,12 @@ const AllPets = () => {
 
   const { data: pets, isLoading, refetch } = useGetAllPetsQuery(query);
 
-  console.log(pets);
-
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          my: 10,
-          py: 30,
-          backgroundColor: "rgba(20, 20, 20, 0.1)",
-          clipPath: "polygon(0 0, 100% 25%, 100% 100%, 0 75%)",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h4" component="h1" fontWeight={700}>
-          Loading...
-        </Typography>
-      </Box>
-    );
-  }
+  // console.log(pets);
 
   return (
     <>
       <Navbar />
-      <Box
-      // sx={{
-      //   my: 10,
-      //   py: 30,
-      //   backgroundColor: "rgba(20, 20, 20, 0.1)",
-      //   clipPath: "polygon(0 0, 100% 25%, 100% 100%, 0 75%)",
-      // }}
-      >
+      <Box>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" component="h1" fontWeight={700}>
             Our available pet for adoption
@@ -114,6 +90,7 @@ const AllPets = () => {
               fullWidth={false}
             >
               <MenuItem value="">All</MenuItem>
+              <MenuItem value="bird">Bird</MenuItem>
               <MenuItem value="cat">Cat</MenuItem>
               <MenuItem value="dog">Dog</MenuItem>
               <MenuItem value="horse">Horse</MenuItem>

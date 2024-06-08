@@ -1,13 +1,8 @@
 import Loading from "@/app/loading";
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
-import RSelect from "@/components/Forms/RSelect";
 import RModal from "@/components/shared/RModal/RModal";
 import { useCreateAdoptionMutation } from "@/redux/api/adoptionApi";
-import {
-  useGetMyProfileQuery,
-  useUpdateUserMutation,
-} from "@/redux/api/userApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import React from "react";
@@ -22,13 +17,11 @@ type TProps = {
 };
 
 const AdoptPetModal = ({ open, setOpen, id: petId, refetch }: TProps) => {
-  const { data: user, isLoading } = useGetMyProfileQuery({});
+  const [createAdoption, isLoading] = useCreateAdoptionMutation();
 
-  const [createAdoption] = useCreateAdoptionMutation();
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   const handleFormSubmit = async (values: FieldValues) => {
     // console.log(id);
@@ -40,10 +33,10 @@ const AdoptPetModal = ({ open, setOpen, id: petId, refetch }: TProps) => {
     };
 
     const data = modifyPayload(adoptionCredentials);
-    console.log("adpt", data);
+    // console.log("adpt", data);
     try {
       const res = await createAdoption(data).unwrap();
-      console.log("adpt re", res);
+      // console.log("adpt re", res);
       if (res?.id) {
         toast.success("Adoption request create successfully!!");
         setOpen(false);
