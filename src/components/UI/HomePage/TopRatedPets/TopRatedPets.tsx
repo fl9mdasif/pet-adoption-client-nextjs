@@ -18,6 +18,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useState } from "react";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import Navbar from "@/components/shared/Navbar/Navbar";
+import Link from "next/link";
 
 const TopRatedPets = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -31,12 +32,6 @@ const TopRatedPets = () => {
     breed: breed || undefined,
     size: size || undefined,
   };
-
-  // useEffect(() => {
-
-  //   const newQuery = { searchTerm, species, breed, size };
-  //   setQuery(newQuery);
-  // }, [searchTerm, species, breed, size]);
 
   const { data: pets, isLoading, refetch } = useGetAllPetsQuery(query);
 
@@ -198,7 +193,7 @@ const TopRatedPets = () => {
                       }}
                     >
                       <Button>Book Now</Button>
-                      <Button variant="outlined">View Profile</Button>
+                      <Link href={`/pets/${pet.id}`}>View Details</Link>
                     </CardActions>
                   </Card>
                 </Grid>

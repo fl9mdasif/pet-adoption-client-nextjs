@@ -14,9 +14,6 @@ const ProfileManagement = () => {
 
   const { data: user, isLoading, refetch } = useGetMyProfileQuery({});
 
-  if (isLoading) {
-    <Loading />;
-  }
   // console.log("user", user);
 
   return (

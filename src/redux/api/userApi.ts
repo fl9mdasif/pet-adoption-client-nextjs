@@ -48,12 +48,19 @@ const UserApi = baseApi.injectEndpoints({
     }),
 
     updateUserByAdmin: build.mutation({
-      query: ({id,data}) => ({
+      query: ({ id, data }) => ({
         url: `/profile/${id}`,
         method: "PATCH",
-        data
+        data,
       }),
       invalidatesTags: [tagTypes.user],
+    }),
+
+    getMyAdoptions: build.query({
+      query: () => ({
+        url: `/profile/my-adoptions`,
+        method: "GET",
+      }),
     }),
   }),
 });
@@ -65,4 +72,5 @@ export const {
   useGetAllUsersQuery,
   useDeleteUserFromDBMutation,
   useUpdateUserByAdminMutation,
+  useGetMyAdoptionsQuery,
 } = UserApi;

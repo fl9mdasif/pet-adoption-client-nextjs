@@ -1,11 +1,134 @@
-import React from "react";
+"use client";
+import Loading from "@/app/loading";
+import { useDeletePetMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
+import { Box, Button, IconButton, TextField } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Image from "next/image";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useGetAllAdoptionsQuery } from "@/redux/api/adoptionApi";
+import AdoptPetModal from "@/app/pets/components/AdoptPetModal";
+import UpdateAdoptionModal from "./components/AdoptionModal";
+import RSelect from "@/components/Forms/RSelect";
 
-const Adoptions = () => {
+const AllAdoptions = () => {
+  const {
+    data: allAdoptions,
+    isLoading,
+    refetch,
+  } = useGetAllAdoptionsQuery({});
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [getId, setId] = useState("");
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  console.log(allAdoptions);
+
+  const handleDelete = async (id: string) => {
+    // try {
+    //   const res = await deletePet(id).unwrap();
+    //   if (res?.id) {
+    //     toast.success("Pet deleted successfully!!!");
+    //     refetch();
+    //   }
+    // } catch (err: any) {
+    //   console.error(err.message);
+    // }
+    // console.log(id);
+  };
+
+  const handleUpdate = (id: string) => {
+    setIsModalOpen(true);
+    setId(id);
+    console.log({ getId });
+  };
+
+  const columns: GridColDef[] = [
+    {
+      field: "Photo",
+      headerName: "Photo",
+      // flex: 1,
+      renderCell: ({ row }) => {
+        return (
+          <Box>
+            <Image
+              src={row.photo}
+              width={40}
+              height={40}
+              // rounded={50}
+              alt="img"
+            />
+          </Box>
+        );
+      },
+    },
+    { field: "petName", headerName: "Pet Name", width: 100 },
+    { field: "requesterEmail", headerName: "User email", width: 140 },
+    { field: "requesterContactNo", headerName: "User contact", width: 100 },
+    { field: "status", headerName: "Adoption-Status", width: 100 },
+    { field: "petLocation", headerName: "petLocation", width: 100 },
+
+    {
+      field: "action1",
+      headerName: "Update",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: ({ row }) => {
+        return (
+          <Box>
+            <IconButton
+              aria-label="update status"
+              onClick={() => handleUpdate(row.id)}
+            >
+              <EditNoteIcon />
+            </IconButton>
+          </Box>
+        );
+      },
+    },
+
+    // delete
+    {
+      field: "action2",
+      headerName: "Delete",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: ({ row }) => {
+        return (
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        );
+      },
+    },
+  ];
+
   return (
-    <div>
-      <h1>all adoption request</h1>
-    </div>
+    <Box>
+      <h1>All Adoptions</h1>
+
+      {!isLoading ? (
+        <Box my={2}>
+          <DataGrid rows={allAdoptions} columns={columns} />
+        </Box>
+      ) : (
+        <h1>Loading.....</h1>
+      )}
+
+      <UpdateAdoptionModal
+        refetch={refetch}
+        id={getId}
+        open={isModalOpen}
+        setOpen={setIsModalOpen}
+      />
+    </Box>
   );
 };
 
-export default Adoptions;
+export default AllAdoptions;

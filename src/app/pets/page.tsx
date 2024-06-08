@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Link from "next/link";
+import Loading from "../loading";
 
 const AllPets = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -41,7 +42,7 @@ const AllPets = () => {
 
   const { data: pets, isLoading, refetch } = useGetAllPetsQuery(query);
 
-  console.log(query);
+  console.log(pets);
 
   if (isLoading) {
     return (
@@ -156,7 +157,9 @@ const AllPets = () => {
 
         <Container sx={{ margin: "30px auto" }}>
           <Grid container spacing={2}>
-            {pets && pets.length > 0 ? (
+            {isLoading ? (
+              <Loading />
+            ) : (
               pets.map((pet: any) => (
                 <Grid item key={pet.id} md={4}>
                   <Card
@@ -204,14 +207,6 @@ const AllPets = () => {
                   </Card>
                 </Grid>
               ))
-            ) : (
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                textAlign="center"
-              >
-                No pets available.
-              </Typography>
             )}
           </Grid>
           <Box
