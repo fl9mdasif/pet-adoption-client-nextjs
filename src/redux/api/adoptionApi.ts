@@ -22,8 +22,8 @@ const AdoptionApi = baseApi.injectEndpoints({
     }),
 
     updateAdoptionStatus: build.mutation({
-      query: ({ id, data }) => ({
-        url: `/adoption-request/${id}`,
+      query: ({ id, petId, data }) => ({
+        url: `/adoption-request/${id}/${petId}`,
         method: "PATCH",
         data,
       }),
@@ -31,8 +31,8 @@ const AdoptionApi = baseApi.injectEndpoints({
     }),
 
     deleteAdoption: build.mutation({
-      query: (id) => ({
-        url: `/adoption-request/${id}`,
+      query: ({ id, petId }) => ({
+        url: `/adoption-request/${id}/${petId}`,
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.adoptions],

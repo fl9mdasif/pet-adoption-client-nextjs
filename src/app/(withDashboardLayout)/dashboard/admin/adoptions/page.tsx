@@ -8,7 +8,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useGetAllAdoptionsQuery } from "@/redux/api/adoptionApi";
+import {
+  useDeleteAdoptionMutation,
+  useGetAllAdoptionsQuery,
+} from "@/redux/api/adoptionApi";
 import AdoptPetModal from "@/app/pets/components/AdoptPetModal";
 import UpdateAdoptionModal from "./components/AdoptionModal";
 import RSelect from "@/components/Forms/RSelect";
@@ -20,31 +23,33 @@ const AllAdoptions = () => {
     refetch,
   } = useGetAllAdoptionsQuery({});
 
+  const [deleteAdoption] = useDeleteAdoptionMutation();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [getId, setId] = useState("");
+  const [getPetId, setPetId] = useState("");
 
   if (isLoading) {
     return <Loading />;
   }
-  console.log(allAdoptions);
+  // console.log(allAdoptions);
 
-  const handleDelete = async (id: string) => {
-    // try {
-    //   const res = await deletePet(id).unwrap();
-    //   if (res?.id) {
-    //     toast.success("Pet deleted successfully!!!");
-    //     refetch();
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    // }
+  const handleDelete = async (id: string, petId: string) => {
+    try {
+      const res = await deleteAdoption({ id, petId });
+      if (res) {
+        toast.success("adoption deleted successfully!!!");
+        refetch();
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
     // console.log(id);
   };
 
   const handleUpdate = (id: string) => {
     setIsModalOpen(true);
     setId(id);
-    console.log({ getId });
   };
 
   const columns: GridColDef[] = [
@@ -83,7 +88,10 @@ const AllAdoptions = () => {
           <Box>
             <IconButton
               aria-label="update status"
-              onClick={() => handleUpdate(row.id)}
+              onClick={() => {
+                handleUpdate(row.id);
+                setPetId(row.petId);
+              }}
             >
               <EditNoteIcon />
             </IconButton>
@@ -101,7 +109,10 @@ const AllAdoptions = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
+          <IconButton
+            onClick={() => handleDelete(row.id, row.petId)}
+            aria-label="delete"
+          >
             <DeleteIcon />
           </IconButton>
         );
@@ -124,6 +135,7 @@ const AllAdoptions = () => {
       <UpdateAdoptionModal
         refetch={refetch}
         id={getId}
+        petId={getPetId}
         open={isModalOpen}
         setOpen={setIsModalOpen}
       />

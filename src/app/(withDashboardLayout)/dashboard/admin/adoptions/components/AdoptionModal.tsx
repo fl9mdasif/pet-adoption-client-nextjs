@@ -12,22 +12,23 @@ import { toast } from "sonner";
 
 type TProps = {
   id: string;
+  petId: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   refetch: any;
 };
 
-const UpdateAdoptionModal = ({ open, setOpen, id, refetch }: TProps) => {
+const UpdateAdoptionModal = ({ open, setOpen, id, petId, refetch }: TProps) => {
   const [updateAdoptionStatus] = useUpdateAdoptionStatusMutation({});
 
   const handleFormSubmit = async (values: FieldValues) => {
     // console.log(id);
     const data = modifyPayload(values);
-    // console.log(data);
+    // console.log("ad", id, "pid,", petId);
     try {
-      const res = await updateAdoptionStatus({ id, data }).unwrap();
-      // console.log(res);
-      if (res?.id) {
+      const res = await updateAdoptionStatus({ id, petId, data });
+      console.log(res);
+      if (res) {
         toast.success("Adoption Status updated successfully!!");
         setOpen(false);
         refetch();

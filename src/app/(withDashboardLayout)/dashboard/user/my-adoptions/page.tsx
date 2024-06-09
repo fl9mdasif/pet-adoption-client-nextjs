@@ -15,18 +15,20 @@ const MyAdoptions = () => {
   const { data: myAdoptions, isLoading, refetch } = useGetMyAdoptionsQuery({});
   const [deleteAdoption] = useDeleteAdoptionMutation();
 
-  const handleDelete = async (id: string) => {
-    console.log(id);
+  const handleDelete = async (id: string, petId: string) => {
     try {
-      const res = await deleteAdoption(id).unwrap();
-      if (res?.id) {
-        toast.success("Request deleted successfully!!!");
+      const res = await deleteAdoption({ id, petId }).unwrap();
+
+      // console.log(res);
+      if (res) {
+        toast.success("adoption deleted successfully!!!");
         refetch();
       }
     } catch (err: any) {
       console.error(err.message);
     }
   };
+
   // console.log(myAdoptions);
 
   const columns: GridColDef[] = [
@@ -61,7 +63,10 @@ const MyAdoptions = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
+          <IconButton
+            onClick={() => handleDelete(row.id, row.petId)}
+            aria-label="delete"
+          >
             <DeleteIcon />
           </IconButton>
         );

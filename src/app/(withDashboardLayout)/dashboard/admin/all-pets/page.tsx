@@ -69,7 +69,7 @@ const AllPets = () => {
     { field: "name", headerName: "Name", width: 140 },
     { field: "species", headerName: "Species", width: 100 },
     { field: "breed", headerName: "breed", width: 100 },
-    { field: "age", headerName: "Age", width: 100 },
+    { field: "petAdoptionStatus", headerName: "petAdoptionStatus", width: 100 },
     { field: "healthStatus", headerName: "healthStatus", width: 100 },
 
     {
@@ -129,7 +129,9 @@ const AllPets = () => {
           <DataGrid rows={data} columns={columns} />
         </Box>
       ) : (
-        <h1>Loading.....</h1>
+        <>
+          <Loading />
+        </>
       )}
     </Box>
   );
