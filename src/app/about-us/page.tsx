@@ -27,7 +27,9 @@ const page = async () => {
       <Navbar />
       <Container maxWidth="md">
         {/* about us */}
-        <Box sx={{ display: "flex", flexDirection: "row", mt: 3, mb: 5 }}>
+        <Box
+          sx={{ display: "flex", gap: 2, flexDirection: "row", mt: 3, mb: 5 }}
+        >
           <Box
             sx={{
               position: "relative",
@@ -36,6 +38,7 @@ const page = async () => {
               overflow: "hidden",
               pt: 4,
               mt: 4,
+              mr: 4,
               padding: 1,
             }}
           >
@@ -51,7 +54,7 @@ const page = async () => {
               mt: 4,
               width: "50%",
               height: "400px", // Fixed height
-              overflow: "hidden",
+              // overflow: "hidden",
               pt: 4,
               padding: 1,
             }}
@@ -76,7 +79,10 @@ const page = async () => {
         </Box>
 
         {/* our missions video */}
-        <Box sx={{ display: "flex", flexDirection: "row", mt: 3, mb: 5 }}>
+
+        <Box
+          sx={{ display: "flex", gap: 2, flexDirection: "row", mt: 3, mb: 5 }}
+        >
           <Grid item xs={12} md={6}>
             <Typography variant="h4" gutterBottom>
               Our Mission
@@ -84,8 +90,8 @@ const page = async () => {
             <Box
               sx={{
                 position: "relative",
-                width: "100%",
-                paddingTop: "56.25%", // 16:9 aspect ratio
+                width: "400px",
+                height: "170px", // 16:9 aspect ratio
                 overflow: "hidden",
                 mb: 2,
               }}
@@ -124,8 +130,9 @@ const page = async () => {
             <Box
               sx={{
                 position: "relative",
-                width: "100%",
-                paddingTop: "56.25%", // 16:9 aspect ratio
+
+                width: "400px",
+                height: "170px", // 16:9 aspect ratio
                 overflow: "hidden",
                 mb: 2,
               }}
@@ -160,67 +167,190 @@ const page = async () => {
         {/* our teams */}
         <Box>
           <Grid item xs={12}>
-            <Typography variant="h4" gutterBottom>
+            <Typography
+              sx={{ textAlign: "center", mt: 5, mb: 3 }}
+              variant="h4"
+              gutterBottom
+            >
               Meet Our Team
             </Typography>
             <Grid />
-            <Grid item key={"doctor.id"} md={4}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                mb: 9,
+              }}
+            >
+              {/* 1 */}
               <Card
                 sx={{
-                  width: "300px",
+                  width: "330px",
                 }}
               >
-                <Box>
+                <Box
+                  sx={{
+                    // position: "relative",
+                    mt: 3,
+
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                    height: "100px",
+                    width: "100px",
+                    borderRadius: "50%",
+                  }}
+                >
                   <Image
-                    src={assets.images.doctors}
-                    alt="doctor"
-                    width={500}
+                    src={assets.images.ceo}
+                    alt="ceo"
+                    objectFit="cover" // Cover property
                     height={100}
+                    width={100}
                   />
                 </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {"doctor.name"}
+                    MD Asif Al Azad
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {"doctor.qualification"}, {"doctor.designation"}
+                    CEO & Founder
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    asifalazadami2021@gmail.com 01605855875
                   </Typography>
                   <Typography variant="body2" color="text.secondary" mt={1}>
-                    <LocationOnIcon /> {"doctor.address"}
+                    <LocationOnIcon /> {"Mirpur 2, Dhaka 1216"}
                   </Typography>
                 </CardContent>
               </Card>
-            </Grid>
-            <Card sx={{ mt: 2 }}>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <Avatar
-                      alt="John Doe"
-                      src="/path/to/john-doe.jpg" // Replace with your profile picture URL
-                      sx={{ width: 80, height: 80 }}
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="h5" gutterBottom>
-                      John Doe
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      Position: Senior Veterinarian
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      Email: john.doe@example.com
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      Bio: John is a seasoned veterinarian with a passion for
-                      animal health and welfare. He ensures that all our pets
-                      receive the best medical care possible and is an advocate
-                      for animal rights.
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+
+              {/* 2 */}
+              <Card
+                sx={{
+                  width: "330px",
+                }}
+              >
+                <Box
+                  sx={{
+                    mt: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    overflow: "hidden",
+                    justifyContent: "center",
+                    height: "100px",
+                    width: "100px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <Image
+                    src={assets.images.manager}
+                    alt="ceo"
+                    height={100}
+                    width={100}
+                  />
+                </Box>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    AL Imran
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Manager
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    alimran3344@gmail.com 01605866554
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    <LocationOnIcon /> {"Mirpur 2, Dhaka 1216"}
+                  </Typography>
+                </CardContent>
+              </Card>
+
+              {/* 3 */}
+              <Card
+                sx={{
+                  width: "330px",
+                }}
+              >
+                <Box
+                  sx={{
+                    // position: "relative",
+                    mt: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    overflow: "hidden",
+                    height: "100px",
+                    width: "100px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <Image
+                    src={assets.images.ex_director}
+                    alt="ceo"
+                    height={100}
+                    width={100}
+                  />
+                </Box>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Aronno Ezaz
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Executive Director
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    aronno@gmail.com 01705657893
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    <LocationOnIcon /> {"Mirpur 2, Dhaka 1216"}
+                  </Typography>
+                </CardContent>
+              </Card>
+              {/* 4 */}
+              <Card
+                sx={{
+                  width: "330px",
+                }}
+              >
+                <Box
+                  sx={{
+                    mt: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100px",
+                    overflow: "hidden",
+                    width: "100px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <Image
+                    src={assets.images.fund_mng}
+                    alt="ceo"
+                    height={100}
+                    width={100}
+                  />
+                </Box>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Mohibul Emon
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Fund Manager
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    emon@gmail.com 01784854346
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    <LocationOnIcon /> {"Mirpur 2, Dhaka 1216"}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
           </Grid>
         </Box>
       </Container>

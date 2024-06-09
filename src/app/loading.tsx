@@ -10,7 +10,7 @@ const Loading = ({ message = "Loading..." }: LoadingProps) => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
+        // flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",

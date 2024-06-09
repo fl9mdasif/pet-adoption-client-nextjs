@@ -22,6 +22,7 @@ import RInput from "@/components/Forms/RInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
+import Navbar from "@/components/shared/Navbar/Navbar";
 
 export const validationSchema = z.object({
   email: z.string().email("Please enter a valid email address!"),
@@ -52,6 +53,7 @@ const LoginPage = () => {
 
   return (
     <Container>
+      <Navbar />
       <Stack
         sx={{
           height: "100vh",

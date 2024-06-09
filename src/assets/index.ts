@@ -12,9 +12,10 @@ const assets = {
     adopt2: require("./images/adopt2.jpg"),
     adopt3: require("./images/adopt3.jpg"),
     userImg: require("./images/user.png"),
-    // doctor3: require("./images/doctor3.png"),
-    // stethoscope: require("./images/Stetoscope.png"),
-    // familyOnBeach: require("./images/familyOnBeach.png"),
+    ceo: require("./images/teams/ceo.jpg"),
+    manager: require("./images/teams/manager.jpg"),
+    fund_mng: require("./images/teams/fundraising-manager.jpg"),
+    ex_director: require("./images/teams/executive-director.jpg"),
   },
   svgs: {
     logo: require("./svgs/logo.svg"),
