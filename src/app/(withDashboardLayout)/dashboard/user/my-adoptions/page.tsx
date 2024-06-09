@@ -17,9 +17,9 @@ const MyAdoptions = () => {
 
   const handleDelete = async (id: string, petId: string) => {
     try {
-      const res = await deleteAdoption({ id, petId }).unwrap();
+      const res = await deleteAdoption({ id, petId });
 
-      // console.log(res);
+      console.log(res);
       if (res) {
         toast.success("adoption deleted successfully!!!");
         refetch();

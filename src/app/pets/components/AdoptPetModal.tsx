@@ -1,11 +1,14 @@
-import Loading from "@/app/loading";
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import RForm from "@/components/Forms/RForm";
 import RInput from "@/components/Forms/RInput";
 import RModal from "@/components/shared/RModal/RModal";
 import { useCreateAdoptionMutation } from "@/redux/api/adoptionApi";
+import { getUserInfo } from "@/services/auth.services";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -17,6 +20,15 @@ type TProps = {
 };
 
 const AdoptPetModal = ({ open, setOpen, id: petId, refetch }: TProps) => {
+  const [getUser, setUser] = useState();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = getUserInfo() as any;
+    setUser(user);
+  }, []);
+
   const [createAdoption, isLoading] = useCreateAdoptionMutation();
 
   // if (isLoading) {
@@ -25,6 +37,10 @@ const AdoptPetModal = ({ open, setOpen, id: petId, refetch }: TProps) => {
 
   const handleFormSubmit = async (values: FieldValues) => {
     // console.log(id);
+
+    if (!getUser) {
+      router.push("/login");
+    }
 
     const adoptionCredentials: any = {
       petId: petId,
@@ -70,7 +86,7 @@ const AdoptPetModal = ({ open, setOpen, id: petId, refetch }: TProps) => {
 
           <Grid container spacing={2}></Grid>
           <Button sx={{ mt: 1 }} type="submit">
-            Update
+            Make Adoption
           </Button>
         </Grid>
       </RForm>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -16,17 +17,20 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Link from "next/link";
 import Loading from "../loading";
+import { getUserInfo } from "@/services/auth.services";
+import { useRouter } from "next/navigation";
 
 const AllPets = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [species, setSpecies] = useState<string>("");
   const [breed, setBreed] = useState<string>("");
   const [size, setSize] = useState<string>("");
+  const [getUser, setUser] = useState();
 
   const query = {
     searchTerm: searchTerm || undefined,
@@ -34,12 +38,6 @@ const AllPets = () => {
     breed: breed || undefined,
     size: size || undefined,
   };
-
-  // useEffect(() => {
-
-  //   const newQuery = { searchTerm, species, breed, size };
-  //   setQuery(newQuery);
-  // }, [searchTerm, species, breed, size]);
 
   const { data: pets, isLoading, refetch } = useGetAllPetsQuery(query);
 
@@ -173,12 +171,11 @@ const AllPets = () => {
                     </CardContent>
                     <CardActions
                       sx={{
-                        justifyContent: "space-between",
+                        // justifyContent: "right",
                         px: 2,
                         paddingBottom: "20px",
                       }}
                     >
-                      <Button>Adopt Now</Button>
                       <Link href={`/pets/${pet.id}`}>View Details</Link>
                     </CardActions>
                   </Card>

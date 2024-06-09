@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { FieldValues } from "react-hook-form";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
@@ -23,20 +23,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import Navbar from "@/components/shared/Navbar/Navbar";
+import { loginSchema } from "@/utils/interface";
 
-export const validationSchema = z.object({
-  email: z.string().email("Please enter a valid email address!"),
-  password: z.string().min(6, "Must be at least 6 characters"),
-});
+export type ValidationSchemaType = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
 
-  const handelSubmit = async (values: FieldValues) => {
+  const handelSubmit = async (values: any) => {
     try {
       const res = await loginUser(values);
-      console.log("res", res);
+      // console.log("res", res);
       if (res?.data?.accessToken) {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
@@ -106,11 +104,9 @@ const LoginPage = () => {
           <Box>
             <RForm
               onSubmit={handelSubmit}
-              resolver={zodResolver(validationSchema)}
-              defaultValues={{
-                email: "",
-                password: "",
-              }}
+              resolver={zodResolver<any>(
+                loginSchema as unknown as ValidationSchemaType
+              )}
             >
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
@@ -147,7 +143,7 @@ const LoginPage = () => {
                 Login
               </Button>
               <Typography component="p" fontWeight={300}>
-                Don&apos;t have an account?{" "}
+                Dont have an account?{" "}
                 <Typography component="p" fontWeight={400} color="blue">
                   <Link href="/register">Create an account</Link>
                 </Typography>

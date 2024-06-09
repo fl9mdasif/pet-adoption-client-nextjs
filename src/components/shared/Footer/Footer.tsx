@@ -14,18 +14,16 @@ const Footer = () => {
           <Typography color="#fff" component={Link} href="/consultation">
             Consultation
           </Typography>
-          <Typography color="#fff">Health Plans</Typography>
-          <Typography color="#fff">Medicine</Typography>
-          <Typography color="#fff">Diagnostics</Typography>
-          <Typography color="#fff">NGOs</Typography>
+          <Link href="/about-us" color="#fff">
+            About
+          </Link>
+          <Link href="/pets" color="#fff">
+            Available Pets
+          </Link>
+          <Link href="/dashboard" color="#fff">
+            Dashboard
+          </Link>
         </Stack>
-
-        {/* <Stack direction="row" gap={2} justifyContent="center" py={3}>
-          <Image src={facebookIcon} width={30} height={30} alt="facebook" />
-          <Image src={instagramIcon} width={30} height={30} alt="facebook" />
-          <Image src={twitterIcon} width={30} height={30} alt="facebook" />
-          <Image src={linkedIcon} width={30} height={30} alt="facebook" />
-        </Stack> */}
 
         {/* <div className="border-b-[1px] border-dashed"></div> */}
         <Box sx={{ border: "1px dashed lightgray" }}></Box>
@@ -37,7 +35,14 @@ const Footer = () => {
           py={3}
         >
           <Typography component="p" color="white">
-            &copy;2024 Ph HealthCare. All Rights Reserved.
+            &copy;2024{" "}
+            <Link href="https://www.linkedin.com/in/fl9mdasif/" passHref>
+              <a target="_blank" rel="noopener noreferrer">
+                Visit My LinkedIn
+              </a>
+              fl9mdasif
+            </Link>{" "}
+            . All Rights Reserved.
           </Typography>
           <Typography
             variant="h4"
@@ -48,9 +53,9 @@ const Footer = () => {
           >
             P
             <Box component="span" color="primary.main">
-              H
+              ET
             </Box>{" "}
-            Health Care
+            Adoption Care
           </Typography>
           <Typography component="p" color="white">
             Privacy Policy! Terms & Conditions

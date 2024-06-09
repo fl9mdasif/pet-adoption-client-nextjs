@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import { Box, List, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from "@/assets";
@@ -7,14 +9,21 @@ import SidebarItem from "./SideBarItems";
 import { getUserInfo } from "@/services/auth.services";
 import { useEffect, useState } from "react";
 import { drawerItems } from "@/utils/drawerItems";
+import { useRouter } from "next/navigation";
 
 const SideBar = () => {
-  const [userRole, setUserRole] = useState("");
+  const [userRole, setUserRole] = useState<any>("");
+  const router = useRouter();
+
+  console.log(userRole);
 
   useEffect(() => {
-    const { role } = getUserInfo() as any;
-    setUserRole(role);
-  }, [userRole]);
+    const user = getUserInfo() as any;
+    setUserRole(user);
+    if (!user) {
+      router.push("/login");
+    }
+  }, []);
 
   // console.log(userRole);
 
@@ -44,7 +53,7 @@ const SideBar = () => {
         </Typography>
       </Stack>
       <List>
-        {drawerItems(userRole as UserRole).map((item, index) => (
+        {drawerItems(userRole?.role as UserRole).map((item, index) => (
           <SidebarItem key={index} item={item} />
         ))}
       </List>

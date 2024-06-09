@@ -9,43 +9,21 @@ import { registerUser } from "@/services/actions/registerUser";
 import { storeUserInfo } from "@/services/auth.services";
 import RInput from "@/components/Forms/RInput";
 import RForm from "@/components/Forms/RForm";
-import { FieldValues } from "react-hook-form";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { loginUser } from "@/services/actions/loginUser";
 import { z } from "zod";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { UserRegSchema } from "@/utils/interface";
 
-interface IUserData {
-  name: string;
-  email: string;
-  password: string;
-  contactNumber: string;
-  address: string;
-}
-
-const UserRegSchema = z.object({
-  name: z.string({
-    required_error: "name is required!",
-  }),
-  email: z
-    .string({
-      required_error: "Valid Email is required!",
-    })
-    .email(),
-  password: z.string().min(6, "Must be at least 6 characters"),
-  contactNumber: z.string(),
-
-  address: z.string({
-    required_error: "address is required!",
-  }),
-});
+export type ValidationSchemaType = z.infer<typeof UserRegSchema>;
 
 const RegisterPage = () => {
   const router = useRouter();
 
   const [error, setError] = useState("");
 
-  const handleSubmit = async (values: FieldValues) => {
+  const handleSubmit = async (values: any) => {
     try {
       const res = await registerUser(values);
       // console.log("res", res);
@@ -108,7 +86,9 @@ const RegisterPage = () => {
           <Box>
             <RForm
               onSubmit={handleSubmit}
-              resolver={zodResolver(UserRegSchema)}
+              resolver={zodResolver<any>(
+                UserRegSchema as unknown as ValidationSchemaType
+              )}
               defaultValues={{
                 email: "",
                 password: "",
