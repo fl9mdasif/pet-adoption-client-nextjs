@@ -17,19 +17,18 @@ Check out the live version of the project [Live Pet Adoption care website](https
   - Sidebar: Additional filtering options such as size, gender, and special needs.
 - **Pet Lists (Based on search)**:
   - Pet Cards: Display a list of pets available for adoption in card format. Each card includes the pet's name, photo, brief description, age, breed, location, and a link to the full pet details page.
-- **Extra Sections (Optional)**:
+- **Review Sections**:
   - Success Stories: Testimonials from people who have adopted pets through the website.
   - Adoption Tips: Advice and guidelines for adopting a pet.
 - **Footer**:
   - Contact Information: Email address, phone number, social media links.
   - Copyright Information: Standard copyright details.
-  - Additional Links: Terms of Use, Privacy Policy, etc.
 
 ### 2. Login & Registration
 - **Login Form**:
-  - Fields: Username or email address, Password.
+  - Fields: email address, Password.
 - **Registration Form**:
-  - Fields: Username, Email address, Password (with confirmation).
+  - Fields: Username, Email address, Password, phone number
 
 ### 3. Pet Details Page (Private)
 - **Features**:
@@ -41,13 +40,15 @@ Check out the live version of the project [Live Pet Adoption care website](https
   - Form Fields: User's contact information (prefilled from profile if possible), additional information, agreement to terms and conditions.
   - Submit Button: Submit the adoption request.
 
-### 5. My Profile
+### 5. User Dashboard
+
+**My Profile**
 - **User Account Information**:
-  - Edit Profile: Options to edit username and email.
-  - Change Password: Link to Change Password section.
-- **Subsections**:
-  - My Adopted Pets: List of pets the user has adopted. Details for each pet include the pet's name, photo, adoption date, and a link to the pet details page (if available).
+  - Edit Profile: Options to edit username and email, mobile number.
   - Change Password Section: Fields for current password and new password (with confirmation).
+- **MY Adoptions**:
+  - My Adopted Pets: List of pets the user has adopted. Details for each pet include the pet's name, photo, adoption date, and a link to the pet details page (if available).
+
 
 ### 6. Admin Dashboard
 - **User Management**:
@@ -56,10 +57,11 @@ Check out the live version of the project [Live Pet Adoption care website](https
   - Add New Pets: Only admins can add pets to the system.
   - Form Fields: Pet's name, photos, detailed description, age, breed, gender, health status, current location.
   - Edit/Remove Pets: Admins can edit or remove pet listings.
+- **Adoption Management**:
   - Edit/update/approved adoptions: Admin can update the adoption request
 
 ## Technologies are being used
-- **Frontend**: Typescript, Next.js, Redux,Zod, tailwind, material UI, etc.
+- **Frontend**: Typescript, Next.js, Redux, Zod, tailwind, material UI, etc.
 - **Backend**: Node.js, Express, Prisma, 
 - **Database**: PostgreSQL
 - **Authentication**: JWT
@@ -69,21 +71,20 @@ Check out the live version of the project [Live Pet Adoption care website](https
 ## How to run my code 
 1. **Clone this client repository**:
    ```bash
-     git clone https://github.com/yourusername/pet-adoption.git
+     git clone https://github.com/fl9mdasif/pet-adoption-client-nextjs.git
    ```
 
 1. **Clone the Server repository**:
    ```bash
-     git clonehttps://github.com/yourusername/pet-adoption.git
+     git clone https://github.com/fl9mdasif/pet-adoption-prisma-express.git
    ```
 2. **run the code**:
-
    ```bash
      npm run dev
    ```
-- run Server side code
-      ```bash
-     npm run start-dev
-   ```
+   - run Server side code
+     ```bash
+       npm run start-dev
+     ```
    
 
