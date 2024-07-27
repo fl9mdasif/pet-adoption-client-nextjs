@@ -73,16 +73,16 @@ Check out the live version of the project [Live Pet Adoption care website](https
    ```bash
      git clone https://github.com/fl9mdasif/pet-adoption-client-nextjs.git
    ```
-
-1. **Clone the Server repository**:
-   ```bash
-     git clone https://github.com/fl9mdasif/pet-adoption-prisma-express.git
-   ```
-2. **run the code**:
+    **run this code**:
    ```bash
      npm run dev
    ```
-   - run Server side code
+
+2. **Clone the Server repository**:
+   ```bash
+     git clone https://github.com/fl9mdasif/pet-adoption-prisma-express.git
+   ```
+   **run the server side code**:
      ```bash
        npm run start-dev
      ```
